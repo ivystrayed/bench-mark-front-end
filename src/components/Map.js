@@ -10,7 +10,12 @@ const Map = (props) => {
     const allMarkers = props.markers.map((marker) => {
       
         return (
-              <Marker key={marker.id} position={[marker.long, marker.lat]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})}>
+              <Marker 
+                key={marker.id} 
+                position={[marker.long, marker.lat]} 
+                icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})}
+                eventHandlers={{click: props.onClick}}
+              >
                   <Popup>
                       its a bench <br /> yeah
                   </Popup>
@@ -37,8 +42,9 @@ Map.propTypes = {
         img: PropTypes.any.isRequired,
         long: PropTypes.number.isRequired,
         lat:  PropTypes.number.isRequired,
-      }
-))
+      })
+    ),
+    onClick: PropTypes.func.isRequired,
     }
         
 

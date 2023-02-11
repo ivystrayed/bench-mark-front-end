@@ -15,3 +15,10 @@
   margin: 5vh 5vw 5vh 25vw;
 }
 
+#info-sheet{
+  position: absolute;
+  left: 10vw;
+  top: 20vh;
+}
+
+

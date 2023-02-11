@@ -5,6 +5,8 @@ import data from './dummidata.json'
 // import markerIconPng from "leaflet/dist/images/marker-icon.png"
 // import {Icon} from 'leaflet'
 import Map from "./components/Map"
+import InfoSheet from './components/InfoSheet.js';
+import React, {useState} from 'react';
 
 function App() {
   
@@ -33,10 +35,29 @@ function App() {
   //         {allMarkers}
   //       </div>
   //     </MapContainer>)
-
-    return (
-      <Map markers={data}/>
+  const [currentBench, setBench] = useState({
+    text: null,
+  })
+  const markerClick = () => {
+    console.log("blepblep")
+    setBench(
+      {text: "blahblahblah"}
     )
+  }
+
+
+
+  return (
+    <div className='App'>
+      <div>
+      <Map markers={data} onClick={markerClick}/>
+      </div>
+      
+      <div>
+        <InfoSheet bench={currentBench}/>
+      </div>
+    </div> 
+  )
 
 
 }
