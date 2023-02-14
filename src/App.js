@@ -30,6 +30,18 @@ function App() {
     setBench(benchID);
   };
 
+  useEffect(() => {
+    if (currentBench)
+      axios
+        .get(URL + "benches/" + currentBench + "/benchstats/")
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }, [currentBench]);
+
   // shows and hidese rating form
   const [ratingFormSwitch, setRatingFormSwitch] = useState(false);
   const toggleRatingFormSwitch = () => {
@@ -49,6 +61,7 @@ function App() {
       .then((response) => {
         setRatingFormSwitch(false);
         console.log(response);
+        console.log(benchList);
       })
       .catch((error) => {
         console.log(error);
