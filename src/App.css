@@ -19,6 +19,9 @@
   position: absolute;
   left: 10vw;
   top: 20vh;
+  height: 50px;
+  width: 50px;
+  background-color: green;
 }
 
 

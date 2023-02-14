@@ -1,11 +1,9 @@
 
 import './App.css';
 import data from './dummidata.json'
-// import { MapContainer, TileLayer, Marker, Popup,} from 'react-leaflet'
-// import markerIconPng from "leaflet/dist/images/marker-icon.png"
-// import {Icon} from 'leaflet'
-import Map from "./components/Map"
-import InfoSheet from './components/InfoSheet.js';
+import { MapContainer, TileLayer, Marker,} from 'react-leaflet'
+import markerIconPng from "leaflet/dist/images/marker-icon.png"
+import {Icon} from 'leaflet'
 import React, {useState} from 'react';
 
 function App() {
@@ -14,52 +12,64 @@ function App() {
   
 
   
-  // const allMarkers = data.map((marker) => {
-      
-  //   return (
-  //         <Marker key={marker.id} position={[marker.long, marker.lat]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})}>
-  //             <Popup>
-  //                 its a bench <br /> yeah
-  //             </Popup>
-  //         </Marker>
-  //     );  
-  // })
-  
-  // return (
-  //     <MapContainer center={[47.6062, -122.3321]} zoom={12} scrollWheelZoom={true} id='map'>
-  //       <TileLayer
-  //           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  //           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  //       />
-  //       <div>
-  //         {allMarkers}
-  //       </div>
-  //     </MapContainer>)
-  const [currentBench, setBench] = useState({
-    text: null,
-  })
-  const markerClick = () => {
-    console.log("blepblep")
-    setBench(
-      {text: "blahblahblah"}
-    )
+
+  const [currentBench, setBench] = useState(null)
+
+  const setInfoBoard = (benchID) => {
+    setBench(benchID)
   }
 
 
 
+
+ 
+  const allMarkers = data.map((marker) => {
+    
+    return (
+          <Marker 
+            key={marker.id} 
+            position={[marker.long, marker.lat]} 
+            icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41]})}
+            eventHandlers={{
+              click: () => {
+                setInfoBoard(marker.id)
+                console.log('marker clicked')
+              }
+            }}
+            />
+      );  
+  })
+  
   return (
     <div className='App'>
-      <div>
-      <Map markers={data} onClick={markerClick}/>
-      </div>
       
-      <div>
-        <InfoSheet bench={currentBench}/>
-      </div>
-    </div> 
+      {/* Map Componant */}
+      <MapContainer center={[47.6062, -122.3321]} zoom={12} scrollWheelZoom={true} id='map'>
+        <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <div>
+          {allMarkers}
+        </div>
+
+      </MapContainer>     
+      
+      {/* pop up info sheet compoannt  */}
+      {currentBench && (
+        <div id='info-sheet'>
+          <div>
+            {currentBench}
+          </div>
+          <button type='button' onClick={() => setInfoBoard(null)}>
+            close
+          </button>
+        </div>
+      )}
+
+    </div>
+      
   )
-
-
 }
 
 
