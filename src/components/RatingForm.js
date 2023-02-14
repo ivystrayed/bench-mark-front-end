@@ -15,7 +15,7 @@ const RatingForm = (props) => {
       squirrel: squirrelRating,
       accesibility: accesibilityRating,
     };
-    props.submit(rating);
+    props.onSubmit(rating);
   };
 
   const RatingArray = (rating, setRating) => {
@@ -60,8 +60,8 @@ const RatingForm = (props) => {
   );
 };
 
-RatingForm.protoTypes = {
-  submit: PropTypes.func.isRequired,
+RatingForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default RatingForm;

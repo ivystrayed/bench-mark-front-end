@@ -5,6 +5,7 @@ import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { Icon } from "leaflet";
 import React, { useState } from "react";
 import RatingForm from "./components/RatingForm";
+import BenchForm from "./components/BenchForm";
 import axios from "axios";
 
 function App() {
@@ -18,14 +19,25 @@ function App() {
 
   // shows and hidese rating form
   const [ratingFormSwitch, setRatingFormSwitch] = useState(false);
-  const toggleRatingFormSwitch = (ratingFormSwitch) => {
+  const toggleRatingFormSwitch = () => {
     setRatingFormSwitch(!ratingFormSwitch);
+  };
+
+  // enters into add bench mode
+  const [newBenchMode, setNewBenchMode] = useState(false);
+  const toggleNewBenchMode = () => {
+    setNewBenchMode(!newBenchMode);
   };
 
   // submits rating on specified bench
   const submitRating = (rating) => {
     console.log(rating);
-    toggleRatingFormSwitch(ratingFormSwitch);
+    setRatingFormSwitch(false);
+  };
+
+  const submitBench = (bench) => {
+    console.log(bench);
+    setNewBenchMode(false);
   };
 
   // creates all the markers
@@ -44,7 +56,6 @@ function App() {
         eventHandlers={{
           click: () => {
             setInfoBoard(marker.id);
-            console.log("marker clicked");
           },
         }}
       />
@@ -67,10 +78,19 @@ function App() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <div>{allMarkers}</div>
-        <div id="new-bench">
-          {/* draggable marker with popup add bench button */}
-        </div>
+
+        {newBenchMode && <BenchForm onSubmit={submitBench} />}
       </MapContainer>
+
+      <button
+        type="button"
+        onClick={() => {
+          toggleNewBenchMode();
+        }}
+        id="add-bench"
+      >
+        ADD BENCH
+      </button>
 
       {/* pop up info sheet compoannt  */}
       {currentBench && (
@@ -88,13 +108,10 @@ function App() {
             <div id="bench-image">{/* image needs to go here */}</div>
           </div>
           <div id="average-ratings">{/* each of the ratings */}</div>
-          <button
-            type="button"
-            onClick={() => toggleRatingFormSwitch(ratingFormSwitch)}
-          >
+          <button type="button" onClick={() => toggleRatingFormSwitch()}>
             Add Rating
           </button>
-          {ratingFormSwitch && <RatingForm submit={submitRating} />}
+          {ratingFormSwitch && <RatingForm onSubmit={submitRating} />}
         </div>
       )}
     </div>
