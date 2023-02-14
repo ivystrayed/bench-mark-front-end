@@ -1,15 +1,28 @@
 import "./App.css";
-import data from "./dummidata.json";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { Icon } from "leaflet";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RatingForm from "./components/RatingForm";
 import BenchForm from "./components/BenchForm";
 import axios from "axios";
 
+export const URL = "http://127.0.0.1:8000/";
+
 function App() {
-  // need a function to create the average rating to send with POST requests
+  const [benchRefresh, refreshBenches] = useState(null);
+  const [benchList, updateBenchList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(URL + "benches/")
+      .then((response) => {
+        updateBenchList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [benchRefresh]);
 
   // sets bench to be displayed on info sheet
   const [currentBench, setBench] = useState(null);
@@ -23,33 +36,57 @@ function App() {
     setRatingFormSwitch(!ratingFormSwitch);
   };
 
+  // submits rating on specified bench
+  const submitRating = (rating) => {
+    axios
+      .post(URL + "ratings/", {
+        bench: currentBench,
+        view: rating["view"],
+        seclusion: rating["seclusion"],
+        squirrels: rating["squirrels"],
+        accesibility: rating["accesibility"],
+      })
+      .then((response) => {
+        setRatingFormSwitch(false);
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // enters into add bench mode
   const [newBenchMode, setNewBenchMode] = useState(false);
   const toggleNewBenchMode = () => {
     setNewBenchMode(!newBenchMode);
   };
 
-  // submits rating on specified bench
-  const submitRating = (rating) => {
-    console.log(rating);
-    setRatingFormSwitch(false);
-  };
-
   const submitBench = (bench) => {
-    console.log(bench);
-    setNewBenchMode(false);
+    axios
+      .post(URL + "benches/", {
+        lat: bench["lat"].toFixed(6),
+        long: bench["long"].toFixed(6),
+      })
+      .then((response) => {
+        toggleNewBenchMode();
+        console.log(response);
+        refreshBenches(() => !benchRefresh);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   // creates all the markers
-  const allMarkers = data.map((marker) => {
+  const allMarkers = benchList.map((marker) => {
     return (
       <Marker
         key={marker.id}
-        position={[marker.long, marker.lat]}
+        position={[marker.lat, marker.long]}
         icon={
           new Icon({
             iconUrl: markerIconPng,
-            iconSize: [25, 41],
+            iconSize: [20, 41],
             iconAnchor: [12, 41],
           })
         }

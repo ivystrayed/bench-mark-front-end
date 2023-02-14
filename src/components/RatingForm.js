@@ -12,7 +12,7 @@ const RatingForm = (props) => {
     const rating = {
       view: viewRating,
       seclusion: seclusionRating,
-      squirrel: squirrelRating,
+      squirrels: squirrelRating,
       accesibility: accesibilityRating,
     };
     props.onSubmit(rating);
