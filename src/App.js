@@ -16,6 +16,11 @@ function App() {
     setBench(benchID);
   };
 
+  const [ratingFormSwitch, setRatingFormSwitch] = useState(false);
+  const toggleRatingFormSwitch = (ratingFormSwitch) => {
+    setRatingFormSwitch(!ratingFormSwitch);
+  };
+
   const allMarkers = data.map((marker) => {
     return (
       <Marker
@@ -54,18 +59,28 @@ function App() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <div>{allMarkers}</div>
+        <div id="new-bench">
+          {/* draggable marker with popup add bench button */}
+        </div>
       </MapContainer>
-
-      {/* rating form */}
-      <RatingForm />
 
       {/* pop up info sheet compoannt  */}
       {currentBench && (
         <div id="info-sheet">
-          <div>{currentBench}</div>
           <button type="button" onClick={() => setInfoBoard(null)}>
             close
           </button>
+          <div>
+            <div id="bench-image">{/* image needs to go here */}</div>
+          </div>
+          <div id="average-ratings">{/* each of the ratings */}</div>
+          <button
+            type="button"
+            onClick={() => toggleRatingFormSwitch(ratingFormSwitch)}
+          >
+            Add Rating
+          </button>
+          {ratingFormSwitch && <RatingForm />}
         </div>
       )}
     </div>

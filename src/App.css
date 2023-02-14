@@ -1,27 +1,27 @@
-@import '../node_modules/leaflet/dist/leaflet.css';
+@import "../node_modules/leaflet/dist/leaflet.css";
 
-
-
-.App{
+.App {
   background-color: #282c34;
   height: 100vh;
   width: 100vw;
   display: flex;
 }
 
-#map{
+#map {
   height: 90vh;
   width: 70vw;
   margin: 5vh 5vw 5vh 25vw;
 }
 
-#info-sheet{
+#info-sheet {
   position: absolute;
   left: 10vw;
   top: 20vh;
-  height: 50px;
-  width: 50px;
+  height: 200px;
+  width: 200px;
   background-color: green;
 }
 
-
+#hidden {
+  display: hidden;
+}
