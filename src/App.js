@@ -1,26 +1,34 @@
 import "./App.css";
 import data from "./dummidata.json";
-import ratingData from "./dummidataratings.json";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { Icon } from "leaflet";
 import React, { useState } from "react";
 import RatingForm from "./components/RatingForm";
+import axios from "axios";
 
 function App() {
   // need a function to create the average rating to send with POST requests
 
+  // sets bench to be displayed on info sheet
   const [currentBench, setBench] = useState(null);
-
   const setInfoBoard = (benchID) => {
     setBench(benchID);
   };
 
+  // shows and hidese rating form
   const [ratingFormSwitch, setRatingFormSwitch] = useState(false);
   const toggleRatingFormSwitch = (ratingFormSwitch) => {
     setRatingFormSwitch(!ratingFormSwitch);
   };
 
+  // submits rating on specified bench
+  const submitRating = (rating) => {
+    console.log(rating);
+    toggleRatingFormSwitch(ratingFormSwitch);
+  };
+
+  // creates all the markers
   const allMarkers = data.map((marker) => {
     return (
       <Marker
@@ -67,7 +75,13 @@ function App() {
       {/* pop up info sheet compoannt  */}
       {currentBench && (
         <div id="info-sheet">
-          <button type="button" onClick={() => setInfoBoard(null)}>
+          <button
+            type="button"
+            onClick={() => {
+              setInfoBoard(null);
+              setRatingFormSwitch(false);
+            }}
+          >
             close
           </button>
           <div>
@@ -80,7 +94,7 @@ function App() {
           >
             Add Rating
           </button>
-          {ratingFormSwitch && <RatingForm />}
+          {ratingFormSwitch && <RatingForm submit={submitRating} />}
         </div>
       )}
     </div>

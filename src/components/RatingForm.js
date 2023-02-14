@@ -2,11 +2,21 @@ import PropTypes from "prop-types";
 import "./RatingForm.css";
 import React, { useState } from "react";
 
-const RatingForm = () => {
+const RatingForm = (props) => {
   const [viewRating, setViewRating] = useState(0);
   const [seclusionRating, setSeclusionRating] = useState(0);
   const [squirrelRating, setSquirrelRating] = useState(0);
   const [accesibilityRating, setAccesibilityRating] = useState(0);
+
+  const submitForm = () => {
+    const rating = {
+      view: viewRating,
+      seclusion: seclusionRating,
+      squirrel: squirrelRating,
+      accesibility: accesibilityRating,
+    };
+    props.submit(rating);
+  };
 
   const RatingArray = (rating, setRating) => {
     const [hover, setHover] = useState(0);
@@ -43,9 +53,15 @@ const RatingForm = () => {
 
       <div id="time-spent"></div>
 
-      <button type="submit">submit</button>
+      <button type="button" onClick={submitForm}>
+        submit
+      </button>
     </div>
   );
+};
+
+RatingForm.protoTypes = {
+  submit: PropTypes.func.isRequired,
 };
 
 export default RatingForm;
