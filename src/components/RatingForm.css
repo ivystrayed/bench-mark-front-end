@@ -10,3 +10,43 @@ button {
 .off {
   color: #ccc;
 }
+
+#rating-form {
+  position: absolute;
+  bottom: -25vh;
+  left: 11vw;
+}
+#suubmit {
+  position: absolute;
+  font-family: grime;
+  background-color: white;
+  border-radius: 50%;
+  height: 60px;
+  bottom: 2vh;
+  left: 11.5vw;
+}
+
+#suubmit:hover {
+  background-color: rgb(36, 245, 36);
+}
+
+#labels {
+  position: absolute;
+  font-family: grime;
+  font-size: 20px;
+  bottom: 4vh;
+  left: 14px;
+  color: white;
+}
+
+#add-bench {
+  position: absolute;
+  top: 28vh;
+  left: 11vw;
+  font-family: logo;
+  font-size: 26px;
+  background-color: rgb(251, 166, 91);
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}

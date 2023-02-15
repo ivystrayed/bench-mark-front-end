@@ -1,27 +1,131 @@
 @import "../node_modules/leaflet/dist/leaflet.css";
 
+@font-face {
+  font-family: logo;
+  src: url(./assets/Kelsi-Regular.otf);
+}
+
+@font-face {
+  font-family: grime;
+  src: url(./assets/TR-909.ttf);
+}
+
 .App {
   background-color: #282c34;
   height: 100vh;
   width: 100vw;
-  display: flex;
+  display: grid;
+  grid-template-columns: 30vw 70vw;
 }
 
 #map {
-  height: 90vh;
   width: 70vw;
-  margin: 5vh 5vw 5vh 25vw;
+  height: 100vh;
+  grid-column: 2;
 }
 
-#info-sheet {
+#left-side {
+  grid-column: 1;
+  display: grid;
+  grid-template-rows: 30vh 10vh 30vh 30vh;
+}
+
+#logo {
+  grid-row: 1;
+  width: 30vw;
+  height: 30vh;
   position: absolute;
-  left: 10vw;
-  top: 20vh;
-  height: 200px;
-  width: 200px;
-  background-color: green;
+  top: 0px;
 }
 
-#hidden {
-  display: hidden;
+#sub-heading {
+  height: 10vh;
+  width: 30vw;
+  grid-row: 2;
+  position: absolute;
+  top: 8vh;
+  font-size: 60px;
+  left: 30px;
+  font-family: logo;
+  color: ivory;
+}
+
+.info {
+  position: absolute;
+  width: 28vw;
+  height: 30vh;
+  left: 1vw;
+  top: 40vh;
+}
+
+#close-button {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  left: 26vw;
+  top: 1vh;
+}
+
+#rating-labels {
+  position: absolute;
+  top: 60vh;
+}
+
+#rating-button {
+  position: absolute;
+  background-color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 80%;
+  font-family: grime;
+  text-align: center;
+  bottom: -80px;
+  left: 12vw;
+}
+
+#rating-button:hover {
+  background-color: rgb(36, 245, 36);
+}
+
+.nine {
+  font-family: grime;
+  font-size: 24px;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  justify-content: center;
+  color: black;
+}
+
+.bleh {
+  background: white;
+  padding: 35px 30px 5px 10px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+#avgview {
+  position: absolute;
+  top: 5vh;
+  left: 0vw;
+}
+
+#avgseclusion {
+  position: absolute;
+  top: 5vh;
+  left: 7.4vw;
+}
+
+#avgsqurels {
+  position: absolute;
+  top: 5vh;
+  left: 14.5vw;
+}
+
+#avgaccesibility {
+  position: absolute;
+  top: 5vh;
+  left: 22vw;
 }

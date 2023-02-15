@@ -51,9 +51,7 @@ const RatingForm = (props) => {
         {RatingArray(accesibilityRating, setAccesibilityRating)}
       </div>
 
-      <div id="time-spent"></div>
-
-      <button type="button" onClick={submitForm}>
+      <button type="button" onClick={submitForm} id="suubmit">
         submit
       </button>
     </div>

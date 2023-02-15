@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
-import markerIconPng from "leaflet/dist/images/marker-icon.png";
+import myIcon from "../assets/pirate-flag.png";
 import { Icon } from "leaflet";
 
 const AddBench = (props) => {
@@ -24,7 +24,7 @@ const AddBench = (props) => {
       position={map.getCenter()}
       icon={
         new Icon({
-          iconUrl: markerIconPng,
+          iconUrl: myIcon,
           iconSize: [25, 41],
           iconAnchor: [12, 41],
         })

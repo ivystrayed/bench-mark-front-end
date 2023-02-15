@@ -26,6 +26,7 @@ function App() {
 
   // sets bench to be displayed on info sheet
   const [currentBench, setBench] = useState(null);
+  const [avgBenchInfo, setAvgInfo] = useState([]);
   const setInfoBoard = (benchID) => {
     setBench(benchID);
   };
@@ -35,14 +36,14 @@ function App() {
       axios
         .get(URL + "benches/" + currentBench + "/benchstats/")
         .then((response) => {
-          console.log(response);
+          setAvgInfo(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
   }, [currentBench]);
 
-  // shows and hidese rating form
+  // shows and hids rating form
   const [ratingFormSwitch, setRatingFormSwitch] = useState(false);
   const toggleRatingFormSwitch = () => {
     setRatingFormSwitch(!ratingFormSwitch);
@@ -132,48 +133,96 @@ function App() {
         {newBenchMode && <BenchForm onSubmit={submitBench} />}
       </MapContainer>
 
-      <button
-        type="button"
-        onClick={() => {
-          toggleNewBenchMode();
-        }}
-        id="add-bench"
-      >
-        ADD BENCH
-      </button>
+      <div id="left-side">
+        <img
+          src={require("./assets/default-bench.png")}
+          alt="A Bench"
+          id="logo"
+        ></img>
+        <div id="sub-heading">BENCHMARK</div>
+        <button
+          type="button"
+          onClick={() => {
+            toggleNewBenchMode();
+          }}
+          id="add-bench"
+        >
+          ADD BENCH
+        </button>
 
-      {/* pop up info sheet compoannt  */}
-      {currentBench && (
-        <div id="info-sheet">
-          <button
-            type="button"
-            onClick={() => {
-              setInfoBoard(null);
-              setRatingFormSwitch(false);
-            }}
-          >
-            close
-          </button>
-          <div>
-            <div id="bench-image">{/* image needs to go here */}</div>
-          </div>
-          <div id="average-ratings">{/* each of the ratings */}</div>
-          <button type="button" onClick={() => toggleRatingFormSwitch()}>
-            Add Rating
-          </button>
-          {ratingFormSwitch && <RatingForm onSubmit={submitRating} />}
+        <div id="rating-labels" className="info">
+          <img src={require("./assets/mountain-light.png")} alt="view"></img>
+          <img src={require("./assets/crowd-light.png")} alt="view"></img>
+          <img
+            src={require("./assets/squirrel-light.png")}
+            alt="squirrel"
+          ></img>
+          <img
+            src={require("./assets/hike-light.png")}
+            alt="accesibility"
+          ></img>
         </div>
-      )}
+
+        <div id="labels">
+          <p>
+            view
+            <br />
+            seclusion
+            <br />
+            squirrels
+            <br />
+            accesibility
+          </p>
+        </div>
+
+        {/* pop up info sheet compoannt  */}
+        {currentBench && (
+          <div id="info-sheet" className="info">
+            <button
+              id="close-button"
+              type="button"
+              onClick={() => {
+                setInfoBoard(null);
+                setAvgInfo([]);
+                setRatingFormSwitch(false);
+              }}
+            >
+              X
+            </button>
+            <div id="average-ratings">
+              <div id="letter format">
+                <div className="nine" id="avgview">
+                  <div className="bleh">{avgBenchInfo["view__avg"]}</div>
+                </div>
+                <div className="nine" id="avgseclusion">
+                  <div className="bleh">{avgBenchInfo["seclusion__avg"]}</div>
+                </div>
+                <div className="nine" id="avgsqurels">
+                  <div className="bleh">{avgBenchInfo["squirrels__avg"]}</div>
+                </div>
+                <div className="nine" id="avgaccesibility">
+                  <div className="bleh">
+                    {avgBenchInfo["accesibility__avg"]}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              id="rating-button"
+              type="button"
+              onClick={() => {
+                toggleRatingFormSwitch();
+              }}
+            >
+              RATE
+            </button>
+            {ratingFormSwitch && <RatingForm onSubmit={submitRating} />}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
 export default App;
-
-// const Stamen_Watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-// 	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-// 	subdomains: 'abcd',
-// 	minZoom: 1,
-// 	maxZoom: 16,
-// 	ext: 'jpg'
-// });
