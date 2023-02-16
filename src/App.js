@@ -163,18 +163,6 @@ function App() {
           ></img>
         </div>
 
-        <div id="labels">
-          <p>
-            view
-            <br />
-            seclusion
-            <br />
-            squirrels
-            <br />
-            accesibility
-          </p>
-        </div>
-
         {/* pop up info sheet compoannt  */}
         {currentBench && (
           <div id="info-sheet" className="info">

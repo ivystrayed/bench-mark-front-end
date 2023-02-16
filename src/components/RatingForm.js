@@ -38,22 +38,37 @@ const RatingForm = (props) => {
   };
 
   return (
-    <div id="rating-form">
-      <div id="view">{RatingArray(viewRating, setViewRating)}</div>
+    <div>
+      <div id="rating-form">
+        <div id="view">{RatingArray(viewRating, setViewRating)}</div>
 
-      <div id="seclusion">
-        {RatingArray(seclusionRating, setSeclusionRating)}
+        <div id="seclusion">
+          {RatingArray(seclusionRating, setSeclusionRating)}
+        </div>
+
+        <div id="squirrels">
+          {RatingArray(squirrelRating, setSquirrelRating)}
+        </div>
+
+        <div id="accesibility">
+          {RatingArray(accesibilityRating, setAccesibilityRating)}
+        </div>
+
+        <button type="button" onClick={submitForm} id="suubmit">
+          submit
+        </button>
       </div>
-
-      <div id="squirrels">{RatingArray(squirrelRating, setSquirrelRating)}</div>
-
-      <div id="accesibility">
-        {RatingArray(accesibilityRating, setAccesibilityRating)}
+      <div id="labels">
+        <p>
+          view
+          <br />
+          seclusion
+          <br />
+          squirrels
+          <br />
+          accesibility
+        </p>
       </div>
-
-      <button type="button" onClick={submitForm} id="suubmit">
-        submit
-      </button>
     </div>
   );
 };
